@@ -6,6 +6,7 @@ validation framework through coffeescript
 basic usage
 ============
 
+```coffeescript
 jQuery ($) ->
   $("#some_forms_save_button").live 'click', (event) ->
     errors_div = $("#some_forms_errors_div")
@@ -24,3 +25,4 @@ jQuery ($) ->
         numericality: true
       }
     return new $.Validations(elements, errors_div).validate()
+```
