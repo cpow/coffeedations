@@ -14,14 +14,14 @@ jQuery ($) ->
     errors_div = $("#some_forms_errors_div")
     field_1 = 
       element: $("#field_1")
-      name: "Height"
+      name: "Field One"
       validations: {
         presence: true
         numericality: true
       }
     field_2 =
       element: $("#field_2")
-      name: "Weight"
+      name: "Field Two"
       validations: {
         presence: true
         numericality: true
