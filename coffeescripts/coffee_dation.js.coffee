@@ -15,20 +15,15 @@ class $.Validations
     return false unless errors==0
 
   check_errors: ->
-    errors = []
     for validation_object in @validation_objects
+      errors = []
       validation_object.errors = []
-      for validation, value of validation_object.validations
-        element_value = validation_object.element.val()
-        switch validation
-          when "numericality"
-            errors.push("#{validation_object.name} must be a number") unless element_value.match(/^[0-9]+/)
-          when "presence"
-            errors.push("#{validation_object.name} cannot be blank") unless element_value!=""
-          when "length"
-            errors.push("#{validation_object.name} must be #{value} characters") unless element_value.length==value
+      element_value = validation_object.element.val()
+      if validation_object.validations.matches then errors.push("#{validation_object.name} doesn't match #{validation_object.validations.matches.name}") unless validation_object.element.val()==validation_object.validations.matches.element.val()
+      if validation_object.validations.numericality then errors.push("#{validation_object.name} must be a number") unless element_value.match(/^[0-9]+/)
+      if validation_object.validations.presence then errors.push("#{validation_object.name} cannot be blank") unless element_value!=""
+      if validation_object.validations.length then errors.push("#{validation_object.name} must be #{validation_object.validations.length} characters") unless element_value.length==validation_object.validations.length
       validation_object.errors = errors
-      errors=[]
     return @validation_objects
 
   build_errors: (errors, errors_div, element) ->
@@ -45,5 +40,4 @@ class $.Validations
 
   unwrap_element: (element) ->
     element.unwrap() if element.parent().hasClass("field_with_errors")
-
 
